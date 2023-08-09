@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
+    <title>Document</title>
+    <script>
+        var items = 0;
+        function addItem() {
+            items++;
+
+            var html = "<tr>";
+            html += "<td>" + items + "</td>";
+            html += "<td><input type='text' name='itemName[]'></td>";
+            html += "<td><input type='number' name='itemQuantity[]'></td>";
+            html += "<td><input type='number' name='itemQuantity[]'></td>";
+            html += "<td><input type='number' name='itemQuantity[]'></td>";
+            html += "<td><button class='btn btn-danger' type='button' onclick='deleteRow(this);'>Delete</button></td>"
+            html += "</tr>";
+
+            var row = document.getElementById("tbody").insertRow();
+            row.innerHTML = html;
+        }
+
+        function deleteRow(button) {
+            button.parentElement.parentElement.remove();
+            // first parentElement will be td and second will be tr.
+        }
+    </script>
+</head>
+
+<body style="background-color: #90D0E5;">
+
+    <div class="container">
+        <h1 class="text-center text-danger mt-3">  <h1><marquee style="color: purple;" BEHAVIOUR="slide"scrollnount="70"scrolledeley="100">
+            श्री सिद्धिविनायक नेत्रालय व रुग्णालय 
+            </marquee>
+         </h1></h1>
+        <div class="row text-center mt-5">
+          <div class="col-4">Name of Patient:</div>
+          <div class="col-4">Age:</div>
+          <div class="col-4">Sex:</div>
+        </div>
+    </div>
+
+
+    <form method="POST" action="prescription.php?id=<?php echo $_GET['id']?>">
+        <div class="container-fluid" style="margin-top: 20px;">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">OPD BILL</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+
+                            <tr>
+                                <th>Sr.No</th>
+                                <th>Description</th>
+                                <th>Amount(Rs.)</th>
+                                <th>Qty</th>
+                                <th>Total</th>
+                            </tr>
+                            <tbody id="tbody"></tbody>
+                        </table>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="addItem();">Add</button>
+                    <button type="submit" class="btn btn-success" name="addInvoice" value="Save">Save</button>
+                    <button type="submit" class="btn btn-danger" name="addInvoice" value="Save">Print</button>
+                </div>
+            </div>
+        </div>
+        
+    </form>
+    <h5 style="text-align: right; margin-right: 2em;">SubTotal : 00.00</h5>
+    <h5 style="text-align: right; margin-right: 2em;">Discount : 00.00</h5>
+    <h5 style="text-align: right; margin-right: 2em;">Grand Total : 00.00</h5> <br><br><br>
+    <h6 style="text-align: right; margin-right: 3em;">Signature</h6>
+    <h6>Thank You !</h6>
+</div>
+</body>
+
+</html>

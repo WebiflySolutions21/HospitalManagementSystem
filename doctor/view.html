@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <script>
+      var items = 0;
+
+      function addItem1() {
+        items++;
+
+        var html = "<tr>";
+        html +=
+          "<td><select id='drop' onchange='change(this)'><option value='ed'>E/D</option><option value='tab'>Tab</option><option value='cap'>Cap</option><option value='syr'>Syrup</option></select></td>";
+        html += "<td><input type='text' name='itemName[]'></td>";
+        html +=
+          "<td><select  name='Morn[]'><option value='0'>0</option><option value='1'>1</option><option value='1'>1 थेंब </option><option value='1'>2 थेंब </option><option value='1'>3 थेंब </option><option value='1'>4 थेंब</option><option value='5'>5 थेंब </option><option value='5ml'>5ml</option><option value='10ml'>10ml</option><option value='1/2'>1/2</option></td>";
+        html +=
+          "<td><select  name='After[]'><option value='0'>0</option><option value='1'>1</option><option value='1'>1 थेंब </option><option value='1'>2 थेंब </option><option value='1'>3 थेंब </option><option value='1'>4 थेंब</option><option value='5'>5 थेंब </option><option value='5ml'>5ml</option><option value='10ml'>10ml</option><option value='1/2'>1/2</option></td>";
+        html +=
+          "<td><select  name='Night[]'><option value='0'>0</option><option value='1'>1<option value='1'>1 थेंब </option><option value='1'>2 थेंब </option><option value='1'>3 थेंब </option><option value='1'>4 थेंब</option><option value='5'>5 थेंब </option></option><option value='5ml'>5ml</option><option value='10ml'>10ml</option><option value='1/2'>1/2</option></td>";
+        html +=
+          "<td><select  name='eat[]'><option value='0'>जेवणा नंतर</option><option value='1'>जेवणा आगोदर</option></td>";
+        html += "<td><input type='text' name='itemName[]'></td>";
+
+        html += "<td><input type='number' name='itemQuantity[]'></td>";
+
+        html +=
+          "<td><button class='btn btn-primary' type='button' onclick='deleteRow1(this);'>Delete</button></td>";
+        html += "</tr>";
+
+        var row = document.getElementById("tbody").insertRow();
+        row.innerHTML = html;
+      }
+
+      function change(btn) {
+        var e = document.getElementById("drop").value;
+        console.log(e);
+        if (e === "ed") {
+          console.log("ed");
+          var html = "<tr>";
+          html +=
+            "<td><select id='drop' onchange='change()'><option value='ed'>E/D</option><option value='tab'>Tab</option><option value='cap'>Cap</option><option value='syr'>Syrup</option></select></td>";
+          html += "<td><input type='text' name='itemName[]'></td>";
+          html +=
+            "<td><select  name='Morn[]'><option value='0'>पहिला आठवडा दिवसातून </option><option value='1'>1</option><option value='1'>1 थेंब </option><option value='1'>2 थेंब </option><option value='1'>3 थेंब </option><option value='1'>4 थेंब</option><option value='5'>5 थेंब </option><option value='5ml'>5ml</option><option value='10ml'>10ml</option><option value='1/2'>1/2</option><option>6</option>वेळा</td>";
+          html +=
+            "<td><select  name='After[]'><option value='0'>10 वेळा</option><option value='1'>9 वेळा</option><option value='1'>8 वेळा </option><option value='1'>7 वेळा</option><option value='1'>6 वेळा</option><option value='1'>5 वेळा</option><option value='5'>4 वेळा</option><option value='5ml'>3 वेळा</option><option value='10ml'>2 वेळा</option><option value='1/2'>1 वेळा</option></td>";
+          html +=
+            "<td><button class='btn btn-primary' type='button' onclick='deleteRow1(this);'>Delete</button></td>";
+          html += "</tr>";
+          var row = document.getElementById("tbody").insertRow();
+          row.innerHTML = html;
+        } else {
+          console.log("Bye");
+        }
+      }
+      function deleteRow1(button) {
+        button.parentElement.parentElement.remove();
+        // first parentElement will be td and second will be tr.
+      }
+
+      var items2 = -1;
+      var arr = ["X-ray", "CT-SCAN", "MRI", "Lab", "U.S.G","OCT"];
+      function addItem() {
+        items2++;
+        // console.log()
+        var html = "<tr>";
+        html += "<td>" + arr[items2] + "</td>";
+        html += "<td><textarea type='text' name='itemName[]'></textarea>";
+        html +=
+          "<td><button class='btn btn-primary' type='button' onclick='deleteRow(this);'>Delete</button></td>";
+        html += "</tr>";
+
+        var row = document.getElementById("tbody2").insertRow();
+        row.innerHTML = html;
+      }
+
+      function deleteRow(button) {
+        items2--;
+        button.parentElement.parentElement.remove();
+        // first parentElement will be td and second will be tr.
+      }
+    </script>
+    <title>Shri Sidhivinayak Netralaya</title>
+  </head>
+  <body style="background-color: #90d0e5">
+    <div class="container">
+      <h1 class="text-center text-danger mt-3">
+        <h1>
+          <marquee
+            style="color: purple"
+            BEHAVIOUR="slide"
+            scrollnount="70"
+            scrolledeley="100"
+          >
+            श्री सिद्धिविनायक नेत्रालय व रुग्णालय
+          </marquee>
+        </h1>
+      </h1>
+      <div class="row text-center mt-5">
+        <div class="col-4">Name of Patient:</div>
+        <div class="col-4">Age:</div>
+        <div class="col-4">Sex:</div>
+      </div>
+
+      <div class="text-dark mt-4" style="margin-left: 7rem; font-weight: bold">
+        Past History: या वेबसाईट वर विविध विषयावरील मराठी
+      </div>
+
+      <div class="row">
+        <div class="col-md-2 shadow-lg rounded-3 m-4">
+          <form method="POST" action="">
+            <div class="form-group m-2">
+              <label for="history" class="text-danger">History :</label>
+              <textarea
+                type="text"
+                name="history"
+                id="history"
+                class="form-control"
+                value=""
+                placeholder=""
+              >
+              </textarea>
+            </div>
+            <div class="form-group m-2">
+              <button type="submit" name="submit" class="btn btn-info">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-2 shadow-lg rounded-3 m-4">
+          <form method="POST" action="">
+            <div class="form-group m-2">
+              <label for="history" class="text-danger">Diagnosis :</label>
+              <textarea
+                type="text"
+                name="history"
+                id="history"
+                class="form-control"
+                value=""
+                placeholder=""
+              >
+              </textarea>
+            </div>
+            <div class="form-group m-2">
+              <button type="submit" name="submit" class="btn btn-info">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-2 shadow-lg rounded-3 m-4">
+          <form method="POST" action="">
+            <div class="form-group m-2">
+              <label for="history" class="text-danger">Examination :</label>
+              <textarea
+                type="text"
+                name="history"
+                id="history"
+                class="form-control"
+                value=""
+                placeholder=""
+              >
+              </textarea>
+            </div>
+            <div class="form-group m-2">
+              <button type="submit" name="submit" class="btn btn-info">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-2 shadow-lg rounded-3 m-4">
+          <form method="POST" action="">
+            <div class="form-group m-2">
+              <label for="history" class="text-danger">Chief Complaint :</label>
+              <textarea
+                type="text"
+                name="history"
+                id="history"
+                class="form-control"
+                value=""
+                placeholder=""
+              >
+              </textarea>
+            </div>
+            <div class="form-group m-2">
+              <button type="submit" name="submit" class="btn btn-info">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-2 shadow-lg rounded-3 m-4">
+          <form method="POST" action="">
+            <div class="form-group m-2">
+              <label for="history" class="text-danger">Family History :</label>
+              <textarea
+                type="text"
+                name="history"
+                id="history"
+                class="form-control"
+                value=""
+                placeholder=""
+              >
+              </textarea>
+            </div>
+            <div class="form-group m-2">
+              <button type="submit" name="submit" class="btn btn-info">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-2 shadow-lg rounded-3 m-4">
+          <form method="POST" action="">
+            <div class="form-group m-2">
+              <label for="history" class="text-danger"
+                >Operative Procedure Done :</label
+              >
+              <textarea
+                type="text"
+                name="history"
+                id="history"
+                class="form-control"
+                value=""
+                placeholder=""
+              >
+              </textarea>
+            </div>
+            <div class="form-group m-2">
+              <button type="submit" name="submit" class="btn btn-info">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-4 shadow-lg rounded-3 m-4">
+          <form method="POST" action="">
+            <label for="history" class="text-danger">Advice :</label>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table
+                  class="table table-bordered"
+                  id="dataTable"
+                  width="100%"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <th class="col-md-2">Serial</th>
+                    <th>Description</th>
+                  </tr>
+                  <tbody id="tbody2"></tbody>
+                </table>
+              </div>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="addItem();"
+              >
+                Add
+              </button>
+              <input
+                type="submit"
+                class="btn btn-secondary"
+                name="addInvoice"
+                value="Save"
+              />
+              <input
+                type="submit"
+                class="btn btn-secondary"
+                name="addInvoice"
+                value="Admit Patient"
+              />
+              <a href="./lab.html"
+                ><button type="button" class="btn btn-secondary">Lab</button></a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="container-fluid"> -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Add medicines</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <tr>
+              <th>Types</th>
+              <th>Medicine</th>
+              <th>सकाळ</th>
+              <th>दुपार</th>
+              <th>रात्र</th>
+              <th>कधी घ्यायच्या</th>
+              <th class="col-2">किती दिवस</th>
+              <th>Qty</th>
+            </tr>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+        <button type="button" class="btn btn-info btn-lg" onclick="addItem1();">
+          Add Medicine
+        </button>
+        <input
+          type="submit"
+          class="btn btn-info btn-lg"
+          name="addInvoice"
+          value="Reciept"
+        />
+      </div>
+    </div>
+    <!-- </div> -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

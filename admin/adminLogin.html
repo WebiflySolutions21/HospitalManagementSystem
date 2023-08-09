@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
+    <title>Document</title>
+    <style>
+        div.dataTables_wrapper div.dataTables_info {
+            position: absolute;
+        }
+
+        .dl-horizontal dt {
+            white-space: normal;
+        }
+
+        /* Set width on the form input elements since they're 100% wide by default */
+        div.dt-buttons {
+            float: left;
+            margin-bottom: 5px;
+        }
+
+        div.dom_wrapper {
+            position: fixed;
+            top: 0;
+            right: 0;
+        }
+
+        table {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-primary">
+            <a class="navbar-brand" href="#">
+                <h3 style="color: aliceblue; padding-left: 5%;">SHRI SIDDHIVINAYAK NETRALAYA</h3>
+            </a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <a class="navbar-brand">
+                    <a href="doctorRegistrationForm.html" class="text-white mb-2">Register Doctor</a>
+                </a>
+                <a class="navbar-brand">
+                    <a href="addType.html" class="text-white mb-2">Add type</a>
+
+                </a>
+                <a class="navbar-brand" >
+                    <a href="#" class="text-white mb-2" style="margin-right: 2rem;">Logout</a>
+                </a>
+            </form>
+            </div>
+        </nav>
+        <div>
+            <hr style="height:15px;border-width:0;color:rgb(148, 28, 28);background-color:rgb(148, 30, 30)">
+        </div>
+    </header>
+    <!-- Table Start -->
+    <section>
+        
+    </section>
+    <section>
+        <div class="container-fluid">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="table" mt-2>
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Doctor ID</th>
+                            <th>REG DATE</th>
+                            <th>NAME</th>
+                            <th>SEX</th>
+                            <th>AGE</th>
+                            <th>MOBILE</th>
+                            <th>Type</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        while ($res = $data->fetch_assoc()) {
+                            echo '<tr>';
+                            echo '<td>' . $res['id'] . '</td>';
+                            echo '<td>' . $res['reg_id'] . '</td>';
+                            echo '<td>' . $res['reg_date'] . '</td>';
+                            echo '<td>' . $res['name'] . '</td>';
+                            echo '<td>' . $res['sex'] . '</td>';
+                            echo '<td>' . $res['age'] . '</td>';
+                            echo '<td>' . $res['mobile'] . '</td>';
+                            // echo '<td>' . $res['consultant'] . '</td>';
+                            $cid = $res['consultant'];
+                            $mysql = "SELECT `consultant` FROM `consultant` WHERE `id`='$cid'";
+                            $cn = $conn->query($mysql);
+                            $pcn = $cn->fetch_assoc();
+                            echo '<td>' . $pcn['consultant'] . '</td>';
+                            <!-- echo '<td>' . $res['total'] . '</td>'; -->
+                            <!-- echo '<td><a href="viewDetails.html?id=' . $res['id'] . '" class="btn btn-primary">View Details</a></td>'; -->
+                            <!-- echo '<td><a href="billing.php?id=' . $res['id'] . '" class="btn btn-primary">Bill</a></td>'; -->
+                            <!-- echo '<td><a href="prescription.php?id=' . $res['id'] . '" class="btn btn-primary">Prescription</a></td>';
+                            echo '<td><a href="pres_receipt.php?id=' . $res['id'] . '" class="btn btn-primary">Show Prescription</a></td>'; -->
+                            echo '</tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    </div>
+    </section>
+    <script src="table_edit/jquery.tabledit.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable({
+                buttons: ['pageLength', 'copyHtml5', 'excelHtml5', 'csvHtml5'],
+                dom: 'Bfrtip',
+                aLengthMenu: [
+                    [25, 50, 100, 200, -1],
+                    [25, 50, 100, 200, "All"]
+                ],
+                iDisplayLength: -1
+            });
+            $('#table').Tabledit({
+                url: 'update.php',
+                columns: {
+                    identifier: [0, "id"],
+                    editable: [
+                        [2, 'reg_date'],
+                        [3, 'name'],
+                        [4, 'sex'],
+                        [5, 'age'],
+                        [6, 'mobile'],
+                    ]
+                },
+                restoreButton: true,
+                onSuccess: function(data, textStatus, jqXHR) {
+                    if (data.action == 'delete') {
+                        $('#' + data.id).remove();
+                    }
+                },
+                inputClass: 'form-control input-sm',
+
+                // // class for toolbar
+                toolbarClass: 'btn-toolbar',
+
+                // class for buttons group
+                groupClass: 'btn-group btn-group-sm',
+
+                // class for row when ajax request fails
+                dangerClass: 'danger',
+
+                // class for row when save changes
+                warningClass: 'warning',
+
+                // class for row when is removed
+                mutedClass: 'text-muted',
+
+                // trigger to change for edit mode.
+                // e.g. 'dblclick'
+                eventType: 'click',
+
+                // change the name of attribute in td element for the row identifier
+                rowIdentifier: 'id',
+
+                // activate focus on first input of a row when click in save button
+                autoFocus: true,
+
+                // hide the column that has the identifier
+                hideIdentifier: false,
+
+                // activate edit button instead of spreadsheet style
+                editButton: true,
+
+                // activate delete button
+                deleteButton: true,
+
+                // activate save button when click on edit button
+                saveButton: true,
+
+                // activate restore button to undo delete action
+                restoreButton: true,
+
+                // custom action buttons
+                buttons: {
+                    edit: {
+                        class: 'btn btn-sm btn-primary',
+                        html: 'Edit',
+                        action: 'edit'
+                    },
+                    delete: {
+                        class: 'btn btn-sm btn-danger ml-2',
+                        html: 'Delete',
+                        action: 'delete'
+                    },
+                    save: {
+                        class: 'btn btn-sm btn-success',
+                        html: 'Save'
+                    },
+                    restore: {
+                        class: 'btn btn-sm btn-warning',
+                        html: 'Restore',
+                        action: 'restore'
+                    },
+                    confirm: {
+                        class: 'btn btn-sm btn-danger',
+                        html: 'Confirm'
+                    }
+                },
+
+                // executed after draw the structure
+                onDraw: function() {
+                    return;
+                },
+
+                // executed when the ajax request is completed
+                // onSuccess(data, textStatus, jqXHR)
+                onSuccess: function() {
+                    return;
+                },
+
+                // executed when occurred an error on ajax request
+                // onFail(jqXHR, textStatus, errorThrown)
+                onFail: function() {
+                    return;
+                },
+
+                // executed whenever there is an ajax request
+                onAlways: function() {
+                    return;
+                },
+
+                // executed before the ajax request
+                // onAjax(action, serialize)
+                onAjax: function() {
+                    return;
+                }
+
+            });
+        });
+    </script>
+</body>
+</html>

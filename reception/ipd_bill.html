@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+</head>
+
+<body style="background-color:#90D0E5;">
+    <h1><marquee style="color: purple;" BEHAVIOUR="slide"scrollnount="70"scrolledeley="100">
+        श्री सिद्धिविनायक नेत्रालय व रुग्णालय 
+        </marquee>
+     </h1>
+    <div class="container">
+        <div class="col m-4 p-4 shadow-lg rounded">
+            <h2 style="text-align: center; color: red;"> IPD Billing Section</h2>
+            <form method="POST" action="">
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <label for="" class="form-label">Stay Charge per day</label>
+                        <input type="hidden" name="ipd[0][name]" value="stay">
+                        <select class="form-control stay" name="ipd[0][stay_charge_per_day]" onchange="stays()">
+                            <option value="600">General </option>
+                            <option value="1000">Semi Special Room</option>
+                            <option value="1500">Special Room</option>
+                            <option value="2500">Deluxe room without AC</option>
+                            <option value="3000">Deluxe room with AC</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="totalnumberofdays" class="form-label">Total Number of Days</label>
+                        <input type="text" class="form-control totalnumberofdays" name="ipd[0][totalnumberofdays]" placeholder="Total Number of Days" id="totalnumberofdays" onchange="stays()" value="<?php echo $json[0]['totalnumberofdays']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tsc" class="form-label">Total Stay Charge</label>
+                        <input type="text" class="form-control tsc" name="ipd[0][total_stay_charge]" placeholder="Total Consulted Fees" id="tsc" value=" <?php echo $json[0]['total_stay_charge']; ?>">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <label for="consulteddoctorfees" class="form-label">Consluted Doctor Fees</label>
+                        <input type="hidden" name="ipd[1][name]" value="Consluted">
+                        <input type="hidden" name="ipd[1][name]" value="Consluted Doctor">
+                        <input type="text" class="form-control consulteddoctorfees" name="ipd[1][consulted_doctor_fees]" placeholder="Consulted Doctor Fees" value="<?php echo $json[1]['consulted_doctor_fees']; ?>" id="consulteddoctorfees" onchange="consulted()">
+                    </div>
+                    <div class="col-4">
+                        <label for="totalconsulteddays" class="form-label">Total Consulted Days</label>
+                        <input type="text" class="form-control totalconsulteddays" name="ipd[1][total_consulted_days]" placeholder="Total Consulted Days" id="totalconsulteddays" onchange="consulted()" value="<?php echo $json[1]['total_consulted_days']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="totalconsultedfees" class="form-label">Total Consulted Fees</label>
+                        <input type="text" class="form-control totalconsultedfees" name="ipd[1][total_consulted_fees]" placeholder="Total Consulted Fees" id="totalconsultedfees" value="<?php echo $json[1]['total_consulted_fees']; ?>">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <input type="hidden" name="ipd[2][name]" value="Visit">
+                        <label for="visit" class="form-label">Visit</label>
+                        <input type="text" class="form-control visit" name="ipd[2][visit]" placeholder="Visit" id="visit" value="<?php if(isset($json[2]['visit']) && !empty($json[2]['visit'])){ echo $json[2]['visit']; } else { echo "300";} ?>" onchange="visiti()" >
+                    </div>
+                    <div class="col-4">
+                        <label for="nv" class="form-label">No of Visits</label>
+                        <input type="text" class="form-control nv" name="ipd[2][no_of_visit]" placeholder="No. of Visits" id="nv" onchange="visiti()"  value="<?php echo $json[2]['no_of_visit']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tvf" class="form-label">Total Visit Fees</label>
+                        <input type="text" class="form-control tvf" name="ipd[2][total_visit_fees]" placeholder="Total Visit Fees" id="tvf" value="<?php echo $json[2]['total_visit_fees']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <input type="hidden" name="ipd[3][name]" value="Nursing">
+                        <label for="nursing" class="form-label">Nursing</label>
+                        <input type="text" class="form-control nursing" name="ipd[3][nursing]" placeholder="Nursing" id="nursing" value="<?php if(isset($json[2]['nursing']) && !empty($json[2]['nursing'])){ echo $json[2]['nursing']; } else { echo "300";} ?>" onchange="nursings()">
+                    </div>
+                    <div class="col-4">
+                        <label for="totalnursing" class="form-label">Total</label>
+                        <input type="text" class="form-control totalnursing" name="ipd[3][total_nursing]" placeholder="Nursing Total" id="totalnursing" onchange="nursings()" value="<?php echo $json[3]['total_nursing']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tnc" class="form-label">Total Nursing Charge</label>
+                        <input type="text" class="form-control tnc" name="ipd[3][total_nursing_charge]" placeholder="Total Nursing Charge" id="tnc" value="<?php echo $json[3]['total_nursing_charge']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <label for="ot" class="form-label">OT</label>
+                        <input type="hidden" name="ipd[4][name]" value="OT">
+                        <input type="text" class="form-control ot" name="ipd[4][ot]" placeholder="OT" id="ot" value="<?php if(isset($json[2]['ot']) && !empty($json[2]['ot'])){ echo $json[2]['ot']; } else { echo "3000";} ?>" onchange="ots()">
+                    </div>
+                    <div class="col-4">
+                        <label for="otc" class="form-label">OT Charge</label>
+
+                        <input type="text" class="form-control otc" name="ipd[4][ot_charge]" placeholder="OT Charge" id="otc" onchange="ots()" value="<?php echo $json[4]['ot_charge']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="toc" class="form-label">Total OT Charge</label>
+                        <input type="text" class="form-control toc" name="ipd[4][total_ot_charge]" placeholder="Total OT Charge" id="toc" value="<?php echo $json[4]['total_ot_charge']; ?>">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <label for="anasthesia" class="form-label">Anasthesia</label>
+                        <input type="hidden" name="ipd[5][name]" value="Anasthesia">
+                        <input type="text" class="form-control anasthesia" name="ipd[5][anasthesia]" placeholder="Anasthesia" id="anasthesia" onchange="anasthesias()" value="<?php echo $json[5]['anasthesia']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="acd" class="form-label">Anasthesia Charge Days</label>
+                        <input type="text" class="form-control acd" name="ipd[5][anasthesia_charge_days]" placeholder="Anasthesia Charge" id="acd" onchange="anasthesias()" value="<?php echo $json[5]['anasthesia_charge_days']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tac" class="form-label">Total Anasthesia Charge</label>
+                        <input type="text" class="form-control tac" name="ipd[5][total_anasthesia_fees]" placeholder="Total Anasthesia Charge" id="tac" value="<?php echo $json[5]['total_anasthesia_fees']; ?>">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <label for="sf" class="form-label">Surgeon Fee</label>
+                        <input type="hidden" name="ipd[6][name]" value="Surgeon">
+                        <input type="text" class="form-control sf" name="ipd[6][surgeon_fees]" placeholder="Surgeon Fee" id="sf" onchange="surgeon()" value="<?php echo $json[6]['surgeon_fees']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="snv" class="form-label">Surgeon No of Visits</label>
+                        <input type="text" class="form-control snv" name="ipd[6][surgeon_visits]" placeholder="Surgeon No. of Visits" id="snc" onchange="surgeon()" value="<?php echo $json[6]['surgeon_visits']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tsf" class="form-label">Total Surgeon Fees</label>
+                        <input type="text" class="form-control tsf" name="ipd[6][total_surgeon_visits] " placeholder="Total Surgeon Fees" id="tsf" value="<?php echo $json[6]['total_surgeon_visits']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <label for="tc" class="form-label">Treatment Charges</label>
+                        <input type="hidden" name="ipd[7][name]" value="Treatment">
+                        <input type="text" class="form-control tc" name="ipd[7][treatment_charge]" placeholder="Treatmennt Charge" id="tc" onchange="treatment()" value="<?php echo $json[7]['treatment_charge']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="nd" class="form-label">No.of Days</label>
+                        <input type="text" class="form-control nd" name="ipd[7][no_of_days]" placeholder="No. of Days" id="nd" onchange="treatment()"  value="<?php echo $json[7]['no_of_days']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="ttc" class="form-label">Total Treatment Charge</label>
+                        <input type="text" class="form-control ttc" name="ipd[7][total_treatment_charge]" placeholder="Total Treatmennt Charge" id="ttc"  value="<?php echo $json[7]['total_treatment_charge']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <input type="hidden" name="ipd[8][name]" value="C-ARM">
+                        <label for="carm" class="form-label">C-ARM</label>
+                        <input type="text" class="form-control carm" name="ipd[8][carm]" placeholder="C-ARM" id="carm" value="1000" onchange="carms()" value="<?php echo $json[8]['carm']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="carmcount" class="form-label">C-ARM Count</label>
+                        <input type="text" class="form-control carmcount" name="ipd[8][carm_count]" placeholder="C-ARM Count" id="carmcount" onchange="carms()" value="<?php echo $json[8]['carm_count']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tcf" class="form-label">Total C-ARM Fees</label>
+                        <input type="text" class="form-control tcf" name="ipd[8][total_carm_fees]" placeholder="Total Surgeon Fees" id="tcf" value="<?php echo $json[8]['total_carm_fees']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <label for="ecg" class="form-label">ECG Charges</label>
+                        <input type="hidden" name="ipd[9][name]" value="ECG">
+                        <input type="text" class="form-control ecg" name="ipd[9][ecg]" placeholder="ECG Charges" id="ecg" onchange="ecgs()" value="<?php if(isset($json[9]['ecg'])){echo $json[9]['ecg'];} else {echo '500';} ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tecg" class="form-label">Total ECG</label>
+                        <input type="text" class="form-control tecg" name="ipd[9][total_ecg]" placeholder="Total ECG" id="tecg" onchange="ecgs()" value="<?php echo $json[9]['total_ecg']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tecgc" class="form-label">Total ECG Charge</label>
+                        <input type="text" class="form-control tecgc" name="ipd[9][total_ecg_charge]" placeholder="Total ECG Charge" id="tecgc" value="<?php echo $json[9]['total_ecg_charge']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <input type="hidden" name="ipd[10][name]" value="XRAY">
+                        <label for="xray" class="form-label">XRAY</label>
+                        <input type="text" class="form-control xray" name="ipd[10][xray]" placeholder="XRAY Fee" id="xray" onchange="xrays()" value="<?php if(isset($json[10]['xray'])){echo $json[10]['xray'];} else {echo '500';} ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="txray" class="form-label">Total XRAY</label>
+                        <input type="text" class="form-control txray" name="ipd[10][total_xray]" placeholder="Total XRAY" id="txray" onchange="xrays()" value="<?php echo $json[10]['total_xray']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="txrayf" class="form-label">Total XRAY Fees</label>
+                        <input type="text" class="form-control txrayf" name="ipd[10][total_xray_fees]" placeholder="Total XRAY Fees" id="txrayf" value="<?php echo $json[10]['total_xray_fees']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <input type="hidden" name="ipd[11][name]" value="Moniter Charges">
+                        <label for="mc" class="form-label">Moniter Charges</label>
+                        <input type="text" class="form-control mc" name="ipd[11][monitor_charge]" placeholder="Monitor Charge" id="mc" value="500" onchange="moniters()">
+                    </div>
+                    <div class="col-4">
+                        <label for="ndm" class="form-label">No.of Days</label>
+                        <input type="text" class="form-control ndm" name="ipd[11][no_of_days]" placeholder="No. of Days" id="ndm" onchange="moniters()" value="<?php echo $json[11]['no_of_days']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tmc" class="form-label">Total Monitor Charge</label>
+                        <input type="text" class="form-control tmc" name="ipd[11][total_monitor_charge]" placeholder="Total Moniter Charge" id="tmc" value="<?php echo $json[11]['total_monitor_charge']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <label for="vsf" class="form-label"> Visiting Surgeon Fee</label>
+                        <input type="hidden" name="ipd[12][name]" value="Visiting Surgeon Fee">
+                        <input type="text" class="form-control vsf" name="ipd[12][visiting_surgeon_fees]" placeholder=" Visiting Surgeon Fee" id="vsf" onchange="vsurgeon()"  value="<?php echo $json[11]['visiting_surgeon_fees']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="vsnv" class="form-label">Visiting Surgeon No of Visits</label>
+                        <input type="text" class="form-control vsnv" name="ipd[12][visiting_surgeon_no_of_visits]" placeholder="Visiting Surgeon No. of Visits" id="vsnv" onchange="vsurgeon()"  value="<?php echo $json[12]['visiting_surgeon_no_of_visits']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tvsf" class="form-label">Total Visited Surgeon Fees</label>
+                        <input type="text" class="form-control tvsf" name="ipd[12][total_visit_surgeon_fees]" placeholder="Total Visited Surgeon Fees" id="tvsf"  value="<?php echo $json[12]['total_visit_surgeon_fees']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <label for="ic" class="form-label">Implant Charges</label>
+                        <input type="hidden" name="ipd[13][name]" value="Implant">
+                        <input type="text" class="form-control ic" name="ipd[13][implant_charges]" placeholder="Implant Charge" id="ic" onchange="implant()" value="<?php echo $json[13]['implant_charges']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="ndi" class="form-label">No.of Implants</label>
+                        <input type="text" class="form-control ndi" name="ipd[13][no_of_days]" placeholder="No. of Implants" id="ndi" onchange="implant()" value="<?php echo $json[13]['no_of_days']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tic" class="form-label">Total Implant Charge</label>
+                        <input type="text" class="form-control tic" name="ipd[13][total_implant_charge]" placeholder="Total Implant Charge" id="tic" value="<?php echo $json[13]['total_implant_charge']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <input type="hidden" name="ipd[14][name]" value="Pathology Charges">
+                        <label for="pc" class="form-label">Pathology Charges</label>
+                        <input type="text" class="form-control pc" name="ipd[14][pathology_charge]" placeholder="Pathology Charge" id="pc" onchange="pathology()" value="<?php echo $json[14]['pathology_charge']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="nt" class="form-label">No.of Tests</label>
+                        <input type="text" class="form-control nt" name="ipd[14][no_of_tests]" placeholder="No. of Tests" id="nt" onchange="pathology()" value="<?php echo $json[14]['no_of_tests']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tpc" class="form-label">Total Pathology Charge</label>
+                        <input type="text" class="form-control tpc" name="ipd[14][total_pathology_charge]" placeholder="Total Pathology Charge" id="tpc" value="<?php echo $json[14]['total_pathology_charge']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <label for="medicines" class="form-label"> Medicines</label>
+                        <input type="hidden" name="ipd[15][name]" value="Medicines">
+                        <input type="text" class="form-control medicines" name="ipd[15][medicines]" placeholder=" Medicines" id="medicines" onchange="medicine()" value="<?php echo $json[15]['medicines']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="mqt" class="form-label">Medicine Quantity Times</label>
+                        <input type="text" class="form-control mqt" name="ipd[15][medicine_quanity_times]" placeholder="Medicine Quantity Times" id="mqt" onchange="medicine()" value="<?php echo $json[15]['medicine_quanity_times']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tmcm" class="form-label">Total Medical Charge</label>
+                        <input type="text" class="form-control tmcm" name="ipd[15][total_medical_charge]" placeholder="Medicine Quantity Times" id="tmcm" value="<?php echo $json[15]['total_medical_charge']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <label for="plaster" class="form-label"> Plaster</label>
+                        <input type="hidden" name="ipd[17][name]" value="Plaster">
+                        <input type="text" class="form-control plaster" name="ipd[17][plaster]" placeholder=" Plaster" id="plaster" onchange="plasters()"  value="<?php echo $json[17]['plaster']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="pq" class="form-label">Plaster Quantity</label>
+
+                        <input type="text" class="form-control pq" name="ipd[17][plaster_quantity]" placeholder="Plaster Quantity " id="pq" onchange="plasters()" value="<?php echo $json[17]['plaster_quantity']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tpcc" class="form-label">Total Plaster Charge</label>
+                        <input type="text" class="form-control tpcc" name="ipd[17][total_plaster_charge]" placeholder="Total Plaster Charge" id="tpcc" value="<?php echo $json[17]['total_plaster_charge']; ?>">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <label for="oc" class="form-label">Other Charges</label>
+                        <input type="hidden" name="ipd[18][name]" value="Other">
+                        <input type="text" class="form-control oc" name="ipd[18][other_charges]" placeholder="Other Charges" id="oc" onchange="other1()" value="<?php echo $json[18]['other_charges']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="q" class="form-label">Quantity</label>
+                        <input type="text" class="form-control q" name="ipd[18][quantity]" placeholder="Quantity" id="q" onchange="other1()" value="<?php echo $json[18]['quantity']; ?>">
+                    </div>
+                    <div class="col-4">
+                        <label for="tco" class="form-label">Total Charge</label>
+                        <input type="text" class="form-control tco" name="ipd[18][total_charge]" placeholder="Total Treatmennt Charge" id="tco" value="<?php echo $json[18]['total_charge']; ?>">
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-4 mt-4">
+                        <label for="tp" class="form-label">Total Payable</label>
+                        <input type="text" class="form-control tp" name="total_payable" placeholder="Total Payable" id="tp" onchange="deposited()" value="<?php echo $data_res['total_payable']; ?>">
+                    </div>
+                   
+                    <div class="col-4 mt-4">
+                        <label for="ad" class="form-label">Advance Deposited</label>
+                        <input type="text" class="form-control ad" name="advance_deposited" placeholder="Advance Deposited" id="ad" onchange="deposited()" value="<?php echo $data_res['advance_deposited']; ?>">
+                    </div>
+                   
+                    <div class="col mt-4">
+                        <label for="" class="form-label">Payment Mode</label>
+                        <select class="form-control" name="pay_mode">
+                            <option value="CASH">CASH</option>
+                            <option value="CHECK">CHECK</option>
+                            <option value="NEFT">NEFT</option>
+                            <option value="CARD">CARD</option>
+                            <option value="GOOGLE PAY">GOOGLE PAY</option>
+                            <option value="PHONEPE">PHONEPE</option>
+                        </select>
+                    </div>
+
+                </div>
+                <!--<div class="row">-->
+                <!--    <div class="col mt-4">-->
+                <!--        <label for="pd" class="form-label">Discount</label>-->
+                <!--        <input type="text" class="form-control discount" name="discount1" placeholder="discount" id="discount"  onchange="deposited()">-->
+                <!--    </div>-->
+                <!--    <div class="col mt-4">-->
+                <!--        <label for="pd" class="form-label">Discount value</label>-->
+                <!--        <input type="text" class="form-control dv" name="discount" placeholder="discount value" id="discount_value" onchange="deposited()" value="<?php echo $data_res['discount']; ?>">-->
+                <!--    </div>-->
+                    <div class="col-4 mt-4">
+                        <label for="pd" class="form-label">Payment Due</label>
+                        <input type="text" class="form-control pd" name="payment_due" placeholder="Payment Due" id="pd" onchange="deposited()" value="<?php echo $data_res['payment_due']; ?>">
+                    </div>
+                   
+
+                  
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                I hereby Confirm that Patient has paid due bill or expected bill as per Hospital Norms
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                I agree to all the Terms and Conditions of the Hospital
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="btn-hide">
+                    <div class="row">
+                        <div class="col-1">
+                            <button type="submit" class="btn btn-danger" name="submit" id="submit">Submit</button>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-success" id="print">Print</button>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-info" id="update">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </div>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function stays() {
+            var x = 0;
+            x = $('.stay').val();
+            var y = 0;
+            y = $('.totalnumberofdays').val();
+            var tsc = parseInt(x) * parseInt(y);
+            $('.tsc').val(tsc);
+            payble_total();
+        }
+
+        function consulted() {
+            
+            var x = 0;
+            x = $('.consulteddoctorfees').val();
+            var y = 0;
+            y = $('.totalconsulteddays').val();
+            var totalconsultedfees = parseInt(x) * parseInt(y);
+            $('.totalconsultedfees').val(totalconsultedfees);
+            payble_total();
+        }
+
+        function visiti() {
+            var x = 0;
+            x = $('.visit').val();
+            var y = 0;
+            y = $('.nv').val();
+            var tvf = parseInt(x) * parseInt(y);
+            $('.tvf').val(tvf);
+            payble_total();
+        }
+
+        function nursings() {
+            var x = 0;
+            x = $('#nursing').val();
+            var y = 0;
+            y = $('.totalnursing').val();
+            var tnc = parseInt(x) * parseInt(y)
+            $('.tnc').val(tnc);
+            payble_total();
+        }
+
+        function ots() {
+            var x = 0;
+            x = $('.ot').val();
+            var y = 0;
+            y = $('.otc').val();
+            var toc = parseInt(x) * parseInt(y)
+            $('.toc').val(toc);
+            payble_total();
+        }
+
+        function anasthesias() {
+            var x = 0;
+            x = $('.anasthesia').val();
+            var y = 0;
+            y = $('.acd').val();
+            var tac = parseInt(x) * parseInt(y)
+            $('.tac').val(tac);
+            payble_total();
+        }
+
+        function surgeon() {
+            var x = 0;
+            x = $('.sf').val();
+            var y = 0;
+            y = $('.snv').val();
+            var tsf = parseInt(x) * parseInt(y)
+            $('.tsf').val(tsf);
+            payble_total();
+        }
+
+        function treatment() {
+            var x = 0;
+            x = $('.tc').val();
+            var y = 0;
+            y = $('.nd').val();
+            var ttc = parseInt(x) * parseInt(y)
+            $('.ttc').val(ttc);
+            payble_total();
+        }
+
+        function carms() {
+            var x = 0;
+            x = $('.carm').val();
+            var y = 0;
+            y = $('.carmcount').val();
+            var tcf = parseInt(x) * parseInt(y)
+            $('.tcf').val(tcf);
+            payble_total();
+        }
+
+        function ecgs() {
+            var x = 0;
+            x = $('.ecg').val();
+            var y = 0;
+            y = $('.tecg').val();
+            var tecgc = parseInt(x) * parseInt(y)
+            $('.tecgc').val(tecgc);
+            payble_total();
+        }
+
+        function xrays() {
+            var x = 0;
+            x = $('.xray').val();
+            var y = 0;
+            y = $('.txray').val();
+            var txrayf = parseInt(x) * parseInt(y)
+            $('.txrayf').val(txrayf);
+            payble_total();
+        }
+
+        function moniters() {
+            var x = 0;
+            x = $('.mc').val();
+            var y = 0;
+            y = $('.ndm').val();
+            var tmc = parseInt(x) * parseInt(y)
+            $('.tmc').val(tmc);
+            payble_total();
+        }
+
+        function vsurgeon() {
+            var x = 0;
+            x = $('.vsf').val();
+            var y = 0;
+            y = $('.vsnv').val();
+            var tvsf = parseInt(x) * parseInt(y)
+            $('.tvsf').val(tvsf);
+            payble_total();
+        }
+
+        function implant() {
+            var x = 0;
+            x = $('.ic').val();
+            var y = 0;
+            y = $('.ndi').val();
+            var tic = parseInt(x) * parseInt(y)
+            $('.tic').val(tic);
+            payble_total();
+        }
+
+        function pathology() {
+            var x = 0;
+            x = $('.pc').val();
+            var y = 0;
+            y = $('.nt').val();
+            var tpc = parseInt(x) * parseInt(y)
+            $('.tpc').val(tpc);
+            payble_total();
+        }
+
+        function medicine() {
+            var x = 0;
+            x = $('.medicines').val();
+            var y = 0;
+            y = $('.mqt').val();
+            var tmcm = parseInt(x) * parseInt(y)
+            $('.tmcm').val(tmcm);
+            payble_total();
+        }
+
+        function physiotherapy() {
+            var x = 0;
+            x = $('.pc').val();
+            var y = 0;
+            y = $('.ndt').val();
+            var tpc = parseInt(x) * parseInt(y)
+            $('.tpc').val(tpc);
+            payble_total();
+        }
+
+        function plasters() {
+            var x = 0;
+            x = $('.plaster').val();
+            var y = 0;
+            y = $('.pq').val();
+            var tpcc = parseInt(x) * parseInt(y)
+            $('.tpcc').val(tpcc);
+            payble_total();
+        }
+
+        function other1() {
+            var x = 0;
+            x = $('.oc').val();
+            var y = 0;
+            y = $('.q').val();
+            var tco = parseInt(x) * parseInt(y)
+            $('.tco').val(tco);
+            payble_total();
+        }
+
+        function other2() {
+            var x = 0;
+            x = $('.oc2').val();
+            var y = 0;
+            y = $('.q2').val();
+            var tco2 = parseInt(x) * parseInt(y)
+            $('.tco2').val(tco2);
+            payble_total();
+        }
+
+        function other3() {
+            var x = 0;
+            x = $('.oc3').val();
+            var y = 0;
+            y = $('.q3').val();
+            var tco3 = parseInt(x) * parseInt(y)
+            $('.tco3').val(tco3);
+            payble_total();
+        }
+
+        function deposited() {
+            var dis=parseInt(document.getElementById("discount").value);
+            var x = 0;
+            x = $('.ad').val()
+            var y = 0;
+            y = $('.tp').val()
+         
+            var discount=y*dis/100;
+            $('#discount_value').val(discount);
+            var z = 0;
+            z = $('.dv').val()
+            // var dep = parseInt(y) - parseInt(x) - parseInt(z);
+            var dep = parseInt(y)-parseInt(x);
+            $('#pd').val(dep);
+            payble_total();
+        }
+
+        function payble_total() {
+            var tsc =parseInt($('#tsc').val());
+            if ($('#tsc').val() != '' && tsc>1) {
+                var tsc = $('#tsc').val();
+            } else {
+                var tsc = 0;
+            }
+            if ($('#totalconsultedfees').val() != '') {
+                var totalconsultedfees = $('#totalconsultedfees').val();
+            } else {
+                var totalconsultedfees = 0;
+            }
+            if ($('#tvf').val() != '') {
+                var tvf = $('#tvf').val();
+            } else {
+                var tvf = 0;
+            }
+            if ($('#tnc').val() != '') {
+                var tnc = $('#tnc').val();
+            } else {
+                var tnc = 0;
+            }
+            if ($('#toc').val() != '') {
+                var toc = $('#toc').val();
+            } else {
+                var toc = 0;
+            }
+            if ($('#tac').val() != '') {
+                var tac = $('#tac').val();
+            } else {
+                var tac = 0;
+            }
+            if ($('#tsf').val() != '') {
+                var tsf = $('#tsf').val();
+            } else {
+                var tsf = 0;
+            }
+            if ($('#ttc').val() != '') {
+                var ttc = $('#ttc').val();
+            } else {
+                var ttc = 0;
+            }
+            if ($('#tcf').val() != '') {
+                var tcf = $('#tcf').val();
+            } else {
+                var tcf = 0;
+            }
+            if ($('#tecgc').val() != '') {
+                var tecgc = $('#tecgc').val();
+            } else {
+                var tecgc = 0;
+            }
+
+            if ($('#txrayf').val() != '') {
+                var txrayf = $('#txrayf').val();
+            } else {
+                var txrayf = 0;
+            }
+            if ($('#tmc').val() != '') {
+                var tmc = $('#tmc').val();
+            } else {
+                var tmc = 0;
+            }
+            if ($('#tvsf').val() != '') {
+                var tvsf = $('#tvsf').val();
+            } else {
+                var tvsf = 0;
+            }
+            if ($('#tic').val() != '') {
+                var tic = $('#tic').val();
+            } else {
+                var tic = 0;
+            }
+            if ($('#tmcm').val() != '') {
+                var tmcm = $('#tmcm').val();
+            } else {
+                var tmcm = 0;
+            }
+            if ($('#tpc').val() != '') {
+                var tpc = $('#tpc').val();
+            } else {
+                var tpc = 0;
+            }
+            if ($('#tpcc').val() != '') {
+                var tpcc = $('#tpcc').val();
+            } else {
+                var tpcc = 0;
+            }
+            if ($('#tco').val() != '') {
+                var tco = $('#tco').val();
+            } else {
+                var tco = 0;
+            }
+            if ($('#tco2').val() != '') {
+                var tco2 = $('#tco2').val();
+            } else {
+                var tco2 = 0;
+            }
+            var x = parseInt(tsc) + parseInt(totalconsultedfees) + parseInt(tvf) + parseInt(tnc) + parseInt(toc) + parseInt(tac) + parseInt(tsf) + parseInt(ttc) + parseInt(tcf) + parseInt(tecgc) + parseInt(txrayf) + parseInt(tmc) + parseInt(tic) + parseInt(tvsf) + parseInt(tmcm) + parseInt(tpc) + parseInt(tpcc) + parseInt(tco);
+            
+            $('#tp').val(x);
+
+        }
+
+        $(document).ready(function() {
+
+            $('#btn-hide').hide();
+            $(' input[type="checkbox"]').on('change', function() {
+                var count = 0;
+                $(' input[type="checkbox"]').each(function() {
+                    if ($(this).prop('checked')) {
+                        count++;
+                        return;
+                    }
+
+                })
+                if (count > 0) {
+                    $('#btn-hide').show();
+                } else {
+                    $('#btn-hide').hide();
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
